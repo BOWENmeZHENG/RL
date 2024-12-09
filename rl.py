@@ -83,7 +83,7 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
         prompt = encoding.decode(token_original[0].tolist())
         prompt_complete = prompt + format_prompt
         scores, predictions, reward = reward_function(prompt_complete, data, client)
-        if episode % print_interval == 0:
+        if print_interval != 0 and episode % print_interval == 0:
             print(episode, prompt)
             print(f"Reward: {reward}")
     
