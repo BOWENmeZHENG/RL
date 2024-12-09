@@ -8,6 +8,9 @@ import os
 import random
 import numpy as np
 import torch
+import matplotlib.pyplot as plt
+import pandas as pd
+import glob
 
 # Calculation
 nltk.download('wordnet')
@@ -177,3 +180,39 @@ def extract_named_entities(prompt, text, client, temperature=0.0, max_tokens=100
         max_tokens=max_tokens,
     )
     return response.choices[0].message.content
+
+
+# Plotting
+def extract_filenames_with_prefix(directory, prefix):
+    matching_files = glob.glob(os.path.join(directory, prefix + '*'))
+    filenames = [os.path.basename(file) for file in matching_files]
+    return filenames
+
+def load_results(exp: str):
+    exp_names = extract_filenames_with_prefix("results", exp)
+    all_results = []
+    # Load results in dataframes
+    for exp_name in exp_names:
+        result = pd.read_csv(f"results/{exp_name}")["Reward"]
+        all_results.append(result)
+    return all_results
+
+def plot_results(all_results, fontsize=12, figsize=(10, 6)):
+    """Plots the mean and standard deviation of test results."""
+
+    # Calculate mean and standard deviation
+    mean_results = np.mean(all_results, axis=0)
+    std_results = np.std(all_results, axis=0)
+
+    # Plotting
+    plt.figure(figsize=figsize)
+    x = np.arange(len(mean_results))
+    plt.plot(x, mean_results)
+    plt.fill_between(x, mean_results - std_results, mean_results + std_results, alpha=0.2)
+
+    plt.xlabel("Episode", fontsize=fontsize)
+    plt.ylabel("Mean F1 score", fontsize=fontsize)
+    plt.title("Rewards over Episodes", fontsize=fontsize)
+    plt.xticks(fontsize=fontsize)
+    plt.yticks(fontsize=fontsize)
+    plt.show()

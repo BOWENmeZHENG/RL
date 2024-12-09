@@ -8,6 +8,7 @@ import utils
 import tiktoken
 from sklearn.preprocessing import MinMaxScaler
 import csv
+import matplotlib.pyplot as plt
 
 
 
@@ -37,7 +38,7 @@ def reward_function(prompt_complete, data, client):
     return scores, predictions, reward
     
 def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, hidden,  
-                exp_id, print_interval, save_results, client, 
+                exp_id, print_interval, save_results, plot, client, 
                 dataset="train_data.json", pad_token_id=220, seed=1234,
                 format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
     utils.seed_everything(seed)                
@@ -98,6 +99,13 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
     
         # New state
         token_tensor = torch.from_numpy(scaler.transform(token_original)).float()
+    
+    if plot:
+        plt.plot(REWARDS)
+        plt.xlabel("Episode")
+        plt.ylabel("Mean F1 score")
+        plt.title("Rewards over Episodes")
+        plt.show()
     
     if save_results:
         exp_name = f"{prompt_init}_e_{epochs}_l_{learning_rate}_v_{vocal_size}_len_{prompt_length}_h_{hidden}_s_{seed}_id_{exp_id}"
