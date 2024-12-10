@@ -37,9 +37,9 @@ def reward_function(prompt_complete, data, client):
     reward = np.mean(scores)
     return scores, predictions, reward
     
-def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, hidden,  
+def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, hidden, seed,
                 exp_id, print_interval, save_results, plot, client, 
-                dataset="train_data.json", pad_token_id=220, seed=1234,
+                dataset="train_data.json", pad_token_id=220, 
                 format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
     utils.seed_everything(seed)                
     data = utils.load_json_file(dataset)
