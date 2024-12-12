@@ -1,0 +1,34 @@
+[
+  {
+    "paragraph": "This work demonstrates a dual-functional tunable terahertz metamaterial absorber based on thermally controllable vanadium dioxide (VO2) and electrically tunable graphene. The switchable absorption functions could be obtained in the same metamaterial, which consists of alternating stacked cross-cut graphene disks (CGDs) and VO2 square rings (VSRs) separated by an ultra-thin dielectric film placed on a continuous gold mirror.",
+    "materials": [
+      "terahertz metamaterial absorber",
+      "vanadium dioxide (VO2)",
+      "graphene",
+      "cross-cut graphene disks",
+      "VO2 square rings (VSRs)",
+      "dielectric film",
+      "gold mirror"
+    ]
+  },
+  {
+    "paragraph": "Recent advances in the field of low-power electronic components production have spurred research in energy harvesting. Ambient sound can be used as a source of energy, and the material through which the sound is emitted can affect the harvested energy. Improving the efficiency of energy harvesting from ambient sound has become a hot topic. Phononic crystals and acoustic metamaterials enhance the harvesting efficiency of piezoelectric materials when deformed by sound waves. The material properties of phononic crystals and acoustic metamaterials can also affect noise control. In this paper, we aim to elaborate on different types of phononic crystals and metamaterials, such as the defect mode metamaterial, Gradient Index (GRIN) system, and topological metamaterial, based on their attractive attributes in the energy harvesting field that show promising phenomena compared to conventional metamaterials.",
+    "materials": [
+      "low-power electronic components",
+      "phononic crystals",
+      "acoustic metamaterials",
+      "piezoelectric materials",
+      "topological metamaterial"
+    ]
+  },
+  {
+    "paragraph": "Here, a structure-function integrated system is developed by Douglas fir wood-inspired metamaterial catalysts featuring overlapping microlattices with bimodal pores to decouple the mechanical, transport and catalytic performances. The metamaterial catalyst is prepared by metal 3D printing (316\u2009L stainless steel, mainly Fe) and electrochemically decorated with Co to further boost catalytic functionality.",
+    "materials": [
+      "metamaterial catalysts",
+      "microlattices",
+      "316\u2009L stainless steel",
+      "Fe",
+      "Co"
+    ]
+  }
+]

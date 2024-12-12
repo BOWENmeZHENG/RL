@@ -1,0 +1,44 @@
+[
+  {
+    "paragraph": "Functional amyloid (FAs), particularly the bacterial proteins CsgA and FapC, have many useful properties as biomaterials: high stability, efficient, and controllable formation of a single type of amyloid, easy availability as extracellular material in bacterial biofilm and flexible engineering to introduce new properties. CsgA in particular has already demonstrated its worth in hydrogels for stable gastrointestinal colonization and regenerative tissue engineering, cell-specific drug release, water-purification filters, and different biosensors.",
+    "materials": [
+      "Functional amyloid (FAs)",
+      "bacterial proteins",
+      "CsgA",
+      "FapC",
+      "biomaterials",
+      "amyloid",
+      "extracellular material",
+      "bacterial biofilm",
+      "hydrogels",
+      "water-purification filters",
+      "biosensors"
+    ]
+  },
+  {
+    "paragraph": "Moreover, the article investigates biomaterial-based strategies for the modulation of the immune system, elucidating how the adjustment of their physicochemical properties or their synergistic combination with other agents such as drugs, proteins or mesenchymal stromal cells can effectively modulate the behaviors of different immune cells. Finally this review explores various strategies based on synthetic and biological nanostructures, including extracellular vesicles, to finely tune the immune system as natural immunomodulators or therapeutic nanocarriers with promising biophysical properties.",
+    "materials": [
+      "biomaterial",
+      "drugs",
+      "proteins",
+      "mesenchymal stromal cells",
+      "immune cells",
+      "nanostructures",
+      "extracellular vesicles",
+      "immunomodulators",
+      "therapeutic nanocarriers"
+    ]
+  },
+  {
+    "paragraph": "Here we show that immunometabolic cues in the biomaterial microenvironment govern the trafficking of immune cells, including neutrophils and monocytes, in a manner dependent on the chemokine receptor 2 (CCR2) and the C-X3-C motif chemokine receptor 1 (CX3CR1). In amorphous polylactide implants, modifying immunometabolism by glycolytic inhibition drives a pro-regenerative microenvironment principally by myeloid cells.",
+    "materials": [
+      "immune cells",
+      "neutrophils",
+      "monocytes",
+      "chemokine receptor 2 (CCR2)",
+      "C-X3-C motif chemokine receptor 1 (CX3CR1)",
+      "amorphous polylactide implants",
+      "myeloid cells"
+    ]
+  }
+]
