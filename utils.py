@@ -216,3 +216,19 @@ def plot_results(all_results, fontsize=12, figsize=(10, 6)):
     plt.xticks(fontsize=fontsize)
     plt.yticks(fontsize=fontsize)
     plt.show()
+    
+def plot_results_multiple(result_list, labels, fontsize=12, figsize=(10, 6)):
+    plt.figure(figsize=figsize)
+    plt.xlabel("Episode", fontsize=fontsize)
+    plt.ylabel("Mean F1 score", fontsize=fontsize)
+    plt.title("Rewards over Episodes", fontsize=fontsize)
+    plt.xticks(fontsize=fontsize)
+    plt.yticks(fontsize=fontsize)
+    for i, result in enumerate(result_list):
+        mean = np.mean(result, axis=0)
+        std = np.std(result, axis=0)
+        x = np.arange(len(mean))
+        plt.plot(x, mean, label=labels[i])
+        plt.fill_between(x, mean - std, mean + std, alpha=0.2)
+    plt.legend(fontsize=fontsize, loc="lower right")
+    plt.show()

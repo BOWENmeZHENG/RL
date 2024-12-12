@@ -38,11 +38,11 @@ def reward_function(prompt_complete, data, client):
     return scores, predictions, reward
     
 def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, hidden, seed,
-                exp_id, print_interval, save_results, plot, client, 
-                dataset="train_data.json", pad_token_id=220, 
-                format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
+                exp_id, print_interval, save_results, plot, client, dataset, 
+                pad_token_id=220, format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
     utils.seed_everything(seed)                
-    data = utils.load_json_file(dataset)
+    data = utils.load_json_file(f"data/{dataset}.json")
+    # print(data)
     # Initialization
     encoding = tiktoken.encoding_for_model(model_name)
     tokens_prompt = encoding.encode(prompt_init)
@@ -108,7 +108,7 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
         plt.show()
     
     if save_results:
-        exp_name = f"{prompt_init}_e_{epochs}_l_{learning_rate}_v_{vocal_size}_len_{prompt_length}_h_{hidden}_s_{seed}_id_{exp_id}"
+        exp_name = f"d_{dataset}_p_{prompt_init}_e_{epochs}_l_{learning_rate}_v_{vocal_size}_len_{prompt_length}_h_{hidden}_s_{seed}_id_{exp_id}"
         header = ['Prompt', 'Predictions', 'Scores', 'Reward']
         with open(f'results/{exp_name}.csv', 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
