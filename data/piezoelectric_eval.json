@@ -1,0 +1,38 @@
+[
+  {
+    "paragraph": "Zinc oxide (ZnO) has a broad range of applications in piezo-photoelectrochemical water splitting. Herein, few-layer molybdenum disulfide (MoS2) nanospheres are compounded on ZnO nanosheets (NSs) to form a dual-piezoelectric-material heterojunction of ZnO NSs/MoS2. This work provides a new approach to constructing photoelectrodes with effective piezoelectric photocatalytic properties.",
+    "materials": [
+      "Zinc oxide (ZnO)",
+      "molybdenum disulfide (MoS2) nanospheres",
+      "ZnO nanosheets (NSs)",
+      "dual-piezoelectric-material heterojunction",
+      "ZnO NSs/MoS2",
+      "photoelectrodes"
+    ]
+  },
+  {
+    "paragraph": "Herein, we have developed a dehalogenative deuteration strategy using piezoelectric materials as catalysts in a solid-phase system under ball-milling conditions. D2O can serve as both a deuterium source and an electron donor in the transformation, eliminating the need for additional stoichiometric exogenous reductants. A series of (hetero)aryl iodides can be transformed into deuterated products with high deuterium incorporation.",
+    "materials": [
+      "piezoelectric materials",
+      "catalysts",
+      "solid-phase system",
+      "D2O",
+      "deuterium",
+      "stoichiometric exogenous reductants",
+      "(hetero)aryl iodides",
+      "deuterated products"
+    ]
+  },
+  {
+    "paragraph": "The first demonstration of converse piezoelectricity in 3D fluids is presented by measuring a linear electromechanical effect in ferroelectric nematic liquid crystals. The observed piezoelectric coupling constant below 6 kHz electric field is larger than 1 nC/N, comparable to, or better than, values for the strongest solid piezoelectric materials. Understanding the electromechanical response of ferroelectric nematics will enable mechanical energy harvesting and open up a new avenue for developing fluid actuators, micro positioners, and electrically tunable optical lenses.",
+    "materials": [
+      "3D fluids",
+      "ferroelectric nematic liquid crystals",
+      "solid piezoelectric materials",
+      "ferroelectric nematics",
+      "fluid actuators",
+      "micro positioners",
+      "optical lenses"
+    ]
+  }
+]

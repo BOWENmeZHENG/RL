@@ -1,0 +1,37 @@
+[
+  {
+    "paragraph": "We propose a three-dimensional metamaterial with an isotropic and resonant Tellegen response in the visible frequency range. The metamaterial is formed by randomly oriented bi-material nanocylinders in a host medium. Each nanocylinder consists of a ferromagnet in a single-domain magnetic state and a high-permittivity dielectric operating near the magnetic Mie-type resonance. By leveraging the emerging magnetic Weyl semimetals, we further show how a giant bulk effective magnetoelectric effect can be achieved in a proposed metamaterial, exceeding that of natural materials by almost four orders of magnitude. Low-frequency magnetoelectric materials are thus considered for applications in spintronics, next-generation data storage, and ultralow power logic memory devices.",
+    "materials": [
+      "three-dimensional metamaterial",
+      "bi-material nanocylinders",
+      "ferromagnet",
+      "magnetic Weyl semimetals",
+      "magnetoelectric materials",
+      "spintronics",
+      "logic memory devices"
+    ]
+  },
+  {
+    "paragraph": "This study proposes an innovative geometry of a microstrip sensor for high-resolution microwave imaging (MWI). The proposed design consists of a microstrip patch antenna fed by a coplanar waveguide with a metamaterial (MTM) layer-based lens implemented on the back side, and an artificial magnetic conductor (AMC) realized on as a separate layer. The sensor prototype has been manufactures using the FR4 laminate.",
+    "materials": [
+      "microstrip sensor",
+      "microstrip patch antenna",
+      "coplanar waveguide",
+      "metamaterial",
+      "artificial magnetic conductor (AMC)",
+      "FR4 laminate"
+    ]
+  },
+  {
+    "paragraph": "Auxetic materials with negative Poisson's ratio (PR) exhibit superior mechanical properties with regard to energy absorption. To attenuate surface waves in ultra-low frequencies, this paper presents a novel type of seismic metamaterial (SM) with square pillars embedded as vibrators that is filled by auxetic foam. The designed SM is comprised of three commonly used construction materials, i.e., soil, concrete and auxetic foam.",
+    "materials": [
+      "Auxetic materials",
+      "seismic metamaterial (SM)",
+      "vibrators",
+      "auxetic foam",
+      "construction materials",
+      "soil",
+      "concrete"
+    ]
+  }
+]

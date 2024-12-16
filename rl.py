@@ -123,3 +123,21 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
                 writer.writerow([prompt, predictions, scores, reward])
         
     return PROMPTS, PREDICTIONS, SCORES, REWARDS
+    
+def do_test(prompt, save_results, client, dataset,
+            format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
+    data = utils.load_json_file(f"data/{dataset}.json")
+    prompt_complete = prompt + format_prompt
+    scores, predictions, reward = reward_function(prompt_complete, data, client)
+    print(f"Tested prompt: {prompt}")
+    print(f"Predictions: {predictions}")
+    print(f"Scores: {scores}")
+    print(f"Reward: {reward}\n")
+    if save_results:
+        exp_name = f"test_{dataset}_p_{prompt}"
+        header = ['Prompt', 'Predictions', 'Scores', 'Reward']
+        with open(f'results/{exp_name}.csv', 'w', newline='', encoding='utf-8') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(header)  # Write the header row
+            writer.writerow([prompt, ','.join(map(str, predictions)), scores, reward])
+    return None
