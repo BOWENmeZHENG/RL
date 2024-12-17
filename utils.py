@@ -165,7 +165,7 @@ def extract_named_entities(prompt, text, client, temperature=0.0, max_tokens=100
         str: The model's response containing the extracted entities.
     """
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",

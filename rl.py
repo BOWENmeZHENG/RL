@@ -39,10 +39,9 @@ def reward_function(prompt_complete, data, client):
     
 def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, hidden, seed,
                 exp_id, print_interval, save_results, plot, client, dataset, 
-                pad_token_id=220, format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
+                pad_token_id=220, format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
     utils.seed_everything(seed)                
     data = utils.load_json_file(f"data/{dataset}.json")
-    # print(data)
     # Initialization
     encoding = tiktoken.encoding_for_model(model_name)
     tokens_prompt = encoding.encode(prompt_init)
@@ -125,7 +124,7 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
     return PROMPTS, PREDICTIONS, SCORES, REWARDS
     
 def do_test(prompt, save_results, client, dataset,
-            format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o"):
+            format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
     data = utils.load_json_file(f"data/{dataset}.json")
     prompt_complete = prompt + format_prompt
     scores, predictions, reward = reward_function(prompt_complete, data, client)
