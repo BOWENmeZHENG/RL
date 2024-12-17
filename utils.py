@@ -1,6 +1,6 @@
 import re
 import nltk
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, words
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
 import json
@@ -13,6 +13,7 @@ import pandas as pd
 import glob
 
 # Calculation
+nltk.download('words')
 nltk.download('wordnet')
 nltk.download('stopwords')
 nltk.download('punkt_tab')
@@ -181,6 +182,11 @@ def extract_named_entities(prompt, text, client, temperature=0.0, max_tokens=100
     )
     return response.choices[0].message.content
 
+def make_english_vocab(encoding, v_size, len_min):
+    english_dict = set(words.words())
+    vocab = {id: encoding.decode([id]) for id in range(v_size)}
+    english_vocab = {id: text for id, text in vocab.items() if text.isalpha() and text.islower() and text in english_dict and len(text) > len_min - 1}
+    return list(english_vocab.keys())
 
 # Plotting
 def extract_filenames_with_prefix(directory, prefix):

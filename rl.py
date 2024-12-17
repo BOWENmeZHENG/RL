@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 
 
 
+
 class PolicyNet(nn.Module):
     def __init__(self, input_dim, hidden_dim, output_dim):
         super(PolicyNet, self).__init__()
@@ -36,14 +37,17 @@ def reward_function(prompt_complete, data, client):
         predictions.append(prediction)
     reward = np.mean(scores)
     return scores, predictions, reward
-    
-def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, hidden, seed,
+
+
+def do_training(prompt_init, epochs, learning_rate, v_size, prompt_length, word_len_min, hidden, seed,
                 exp_id, print_interval, save_results, plot, client, dataset, 
                 pad_token_id=220, format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
     utils.seed_everything(seed)                
     data = utils.load_json_file(f"data/{dataset}.json")
+    
     # Initialization
     encoding = tiktoken.encoding_for_model(model_name)
+    vocab = utils.make_english_vocab(encoding, v_size, word_len_min)
     tokens_prompt = encoding.encode(prompt_init)
     padded_token_ids = tokens_prompt + [pad_token_id] * (prompt_length - len(tokens_prompt))
     token_tensor = torch.tensor(padded_token_ids, dtype=torch.float)
@@ -76,9 +80,9 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
     
         # calculate reward
         token_original = scaler.inverse_transform(token_tensor.detach().numpy()).astype(int)
-        token_original = token_original.clip(min=0, max=vocal_size)
+        token_original = token_original.clip(min=0, max=v_size)
         prompt_original = encoding.decode(token_original[0].tolist())
-        token_original[0][action.item()] = random.randint(0, vocal_size)
+        token_original[0][action.item()] = random.choice(vocab)
         prompt = encoding.decode(token_original[0].tolist())
         prompt_complete = prompt + format_prompt
         scores, predictions, reward = reward_function(prompt_complete, data, client)
@@ -107,7 +111,7 @@ def do_training(prompt_init, epochs, learning_rate, vocal_size, prompt_length, h
         plt.show()
     
     if save_results:
-        exp_name = f"d_{dataset}_p_{prompt_init}_e_{epochs}_l_{learning_rate}_v_{vocal_size}_len_{prompt_length}_h_{hidden}_s_{seed}_id_{exp_id}"
+        exp_name = f"d_{dataset}_p_{prompt_init}_e_{epochs}_l_{learning_rate}_v_{v_size}_len_{prompt_length}_wl_{word_len_min}_h_{hidden}_s_{seed}_id_{exp_id}"
         header = ['Prompt', 'Predictions', 'Scores', 'Reward']
         with open(f'results/{exp_name}.csv', 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
