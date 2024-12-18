@@ -9,7 +9,8 @@ import tiktoken
 from sklearn.preprocessing import MinMaxScaler
 import csv
 import matplotlib.pyplot as plt
-
+import pickle
+from collections import deque
 
 
 
@@ -24,6 +25,39 @@ class PolicyNet(nn.Module):
         logits = self.fc2(x)
         probs = torch.softmax(logits, dim=-1)  # action probabilities
         return probs.clone()
+        
+class ReplayBuffer:
+    def __init__(self, capacity):
+        self.buffer = deque(maxlen=capacity)
+    
+    def add(self, state, action_loc, action_word, reward):
+        """Add a transition to the replay buffer."""
+        self.buffer.append((state, action_loc, action_word, reward))
+    
+    def sample(self, batch_size):
+        """Sample a batch of transitions."""
+        batch = random.sample(self.buffer, batch_size)
+        states, actions_loc, actions_word, rewards = zip(*batch)
+        return (
+            torch.tensor(states),
+            torch.tensor(actions_loc),
+            torch.tensor(actions_word),
+            torch.tensor(rewards)
+        )
+    
+    def size(self):
+        """Return the current size of the buffer."""
+        return len(self.buffer)
+    
+    def save(self, file_path):
+        """Save the replay buffer to a file."""
+        with open(file_path, 'wb') as f:
+            pickle.dump(self.buffer, f)
+    
+    def load(self, file_path):
+        """Load the replay buffer from a file."""
+        with open(file_path, 'rb') as f:
+            self.buffer = pickle.load(f)
 
 def reward_function(prompt_complete, data, client):
     scores, predictions = [], []
@@ -39,12 +73,19 @@ def reward_function(prompt_complete, data, client):
     return scores, predictions, reward
 
 
-def do_training(prompt_init: list, fixed_ids: list, epochs, learning_rates, v_size, word_len_min, hiddens, seed,
+def do_training(prompt_init: list, fixed_ids: list, replay, epochs, learning_rates, v_size, word_len_min, hiddens, seed,
                 exp_id, print_interval, save_results, plot, client, dataset, 
                 pad_token_id=220, format_prompt=". Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
     utils.seed_everything(seed)                
     data = utils.load_json_file(f"data/{dataset}.json")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    replay_buffer = ReplayBuffer(capacity=1000)
+    if replay is not None:
+        replay_buffer.load(f"{replay}.pkl")
+        print("Replay buffer loaded.")
+    else:
+        replay_buffer.save("replay_buffer_new.pkl")
+        print("Created a new replay buffer.")
     print(f"Using device: {device}")
     # Initialization
     encoding = tiktoken.encoding_for_model(model_name)
@@ -80,6 +121,8 @@ def do_training(prompt_init: list, fixed_ids: list, epochs, learning_rates, v_si
     PROMPTS.append(prompt_init)
     
     for episode in range(epochs):
+        transition = []
+        transition.append(token_tensor)
         token_tensor_normalized = token_tensor_normalized.to(device)
         action_loc_probs = net_loc.forward(token_tensor_normalized)
         for id in fixed_ids:
@@ -87,21 +130,23 @@ def do_training(prompt_init: list, fixed_ids: list, epochs, learning_rates, v_si
         action_loc_probs = action_loc_probs / torch.sum(action_loc_probs)
         dist_loc = torch.distributions.Categorical(action_loc_probs)
         action_loc = dist_loc.sample()
+        transition.append(action_loc.item())
         log_prob_loc = dist_loc.log_prob(action_loc)
         
         action_word_probs = net_word.forward(token_tensor_normalized)
         dist_word = torch.distributions.Categorical(action_word_probs)
         action_word = dist_word.sample()
         log_prob_word = dist_word.log_prob(action_word)
+        transition.append(action_word)
         # calculate reward
         token_tensor[action_loc.item(), 0] = vocab[action_word]  # random.choice(vocab)
-        print(token_tensor.transpose(0, 1))
         prompt = " ".join([encoding.decode([token]) for token in token_tensor.transpose(0, 1)[0].int().tolist()])
         prompt_complete = prompt + format_prompt
         scores, predictions, reward = reward_function(prompt_complete, data, client)
+        transition.append(reward)
         if print_interval != 0 and episode % print_interval == 0:
             print(episode, prompt)
-            print(f"Predictions: {predictions}")
+            # print(f"Predictions: {predictions}")
             print(f"Reward: {reward}")
     
         loss_loc = -(reward - 0.5) * 2 * log_prob_loc
@@ -122,6 +167,10 @@ def do_training(prompt_init: list, fixed_ids: list, epochs, learning_rates, v_si
         # New state
         token_tensor_normalized = torch.from_numpy(scaler.transform(token_tensor)).float()
         token_tensor_normalized = torch.reshape(token_tensor_normalized, (1, -1))
+        
+        print(transition)
+        replay_buffer.add(transition[0], transition[1], transition[2], transition[3])
+        replay_buffer.save(f"{replay}.pkl")
     
     if plot:
         plt.plot(REWARDS)
