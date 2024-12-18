@@ -23,7 +23,7 @@ class PolicyNet(nn.Module):
         x = torch.relu(self.fc1(x))
         logits = self.fc2(x)
         probs = torch.softmax(logits, dim=-1)  # action probabilities
-        return probs
+        return probs.clone()
 
 def reward_function(prompt_complete, data, client):
     scores, predictions = [], []
@@ -39,26 +39,33 @@ def reward_function(prompt_complete, data, client):
     return scores, predictions, reward
 
 
-def do_training(prompt_init, epochs, learning_rate, v_size, prompt_length, word_len_min, hidden, seed,
+def do_training(prompt_init: list, fixed_ids: list, epochs, learning_rates, v_size, word_len_min, hiddens, seed,
                 exp_id, print_interval, save_results, plot, client, dataset, 
-                pad_token_id=220, format_prompt="Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
+                pad_token_id=220, format_prompt=". Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
     utils.seed_everything(seed)                
     data = utils.load_json_file(f"data/{dataset}.json")
-    
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
     # Initialization
     encoding = tiktoken.encoding_for_model(model_name)
     vocab = utils.make_english_vocab(encoding, v_size, word_len_min)
-    tokens_prompt = encoding.encode(prompt_init)
-    padded_token_ids = tokens_prompt + [pad_token_id] * (prompt_length - len(tokens_prompt))
-    token_tensor = torch.tensor(padded_token_ids, dtype=torch.float)
-    token_tensor = torch.reshape(token_tensor, (1, -1))
+    print(f"Vocabulary size: {len(vocab)}")
+    tokens_prompt = [encoding.encode(word)[0] for word in prompt_init] # encoding.encode(prompt_init)
+    # padded_token_ids = tokens_prompt + [pad_token_id] * (prompt_length - len(tokens_prompt))
+    token_tensor = torch.tensor(tokens_prompt, dtype=torch.float)
+    token_tensor = torch.reshape(token_tensor, (-1, 1))
     scaler = MinMaxScaler()
     scaler.fit(token_tensor)
-    token_tensor = torch.from_numpy(scaler.transform(token_tensor)).float()
-    prompt_complete = prompt_init + format_prompt
+    token_tensor_normalized = torch.from_numpy(scaler.transform(token_tensor)).float()
+    token_tensor_normalized = torch.reshape(token_tensor_normalized, (1, -1))
+    prompt_str = " ".join(prompt_init)
+    prompt_complete = prompt_str + format_prompt
     
-    policy_network = PolicyNet(input_dim=prompt_length, hidden_dim=hidden, output_dim=prompt_length)
-    optimizer = optim.Adam(policy_network.parameters(), lr=learning_rate)
+    prompt_length = len(prompt_init)
+    net_loc = PolicyNet(input_dim=prompt_length, hidden_dim=hiddens[0], output_dim=prompt_length).to(device)
+    optimizer_loc = optim.Adam(net_loc.parameters(), lr=learning_rates[0])
+    net_word = PolicyNet(input_dim=prompt_length, hidden_dim=hiddens[1], output_dim=len(vocab)).to(device)
+    optimizer_word = optim.Adam(net_word.parameters(), lr=learning_rates[1])
     
     PROMPTS, PREDICTIONS, SCORES, REWARDS = [], [], [], []
     scores, predictions, reward = reward_function(prompt_complete, data, client)
@@ -73,27 +80,39 @@ def do_training(prompt_init, epochs, learning_rate, v_size, prompt_length, word_
     PROMPTS.append(prompt_init)
     
     for episode in range(epochs):
-        action_probs = policy_network.forward(token_tensor)
-        dist = torch.distributions.Categorical(action_probs)
-        action = dist.sample()
-        log_prob = dist.log_prob(action)
-    
+        token_tensor_normalized = token_tensor_normalized.to(device)
+        action_loc_probs = net_loc.forward(token_tensor_normalized)
+        for id in fixed_ids:
+            action_loc_probs[0, id] = 0
+        action_loc_probs = action_loc_probs / torch.sum(action_loc_probs)
+        dist_loc = torch.distributions.Categorical(action_loc_probs)
+        action_loc = dist_loc.sample()
+        log_prob_loc = dist_loc.log_prob(action_loc)
+        
+        action_word_probs = net_word.forward(token_tensor_normalized)
+        dist_word = torch.distributions.Categorical(action_word_probs)
+        action_word = dist_word.sample()
+        log_prob_word = dist_word.log_prob(action_word)
         # calculate reward
-        token_original = scaler.inverse_transform(token_tensor.detach().numpy()).astype(int)
-        token_original = token_original.clip(min=0, max=v_size)
-        prompt_original = encoding.decode(token_original[0].tolist())
-        token_original[0][action.item()] = random.choice(vocab)
-        prompt = encoding.decode(token_original[0].tolist())
+        token_tensor[action_loc.item(), 0] = vocab[action_word]  # random.choice(vocab)
+        print(token_tensor.transpose(0, 1))
+        prompt = " ".join([encoding.decode([token]) for token in token_tensor.transpose(0, 1)[0].int().tolist()])
         prompt_complete = prompt + format_prompt
         scores, predictions, reward = reward_function(prompt_complete, data, client)
         if print_interval != 0 and episode % print_interval == 0:
             print(episode, prompt)
+            print(f"Predictions: {predictions}")
             print(f"Reward: {reward}")
     
-        loss = -(reward - 0.5) * 2 * log_prob
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        loss_loc = -(reward - 0.5) * 2 * log_prob_loc
+        optimizer_loc.zero_grad()
+        loss_loc.backward()
+        optimizer_loc.step()
+        
+        loss_word = -(reward - 0.5) * 2 * log_prob_word
+        optimizer_word.zero_grad()
+        loss_word.backward()
+        optimizer_word.step()
     
         SCORES.append(scores)
         REWARDS.append(reward)
@@ -101,7 +120,8 @@ def do_training(prompt_init, epochs, learning_rate, v_size, prompt_length, word_
         PROMPTS.append(prompt)
     
         # New state
-        token_tensor = torch.from_numpy(scaler.transform(token_original)).float()
+        token_tensor_normalized = torch.from_numpy(scaler.transform(token_tensor)).float()
+        token_tensor_normalized = torch.reshape(token_tensor_normalized, (1, -1))
     
     if plot:
         plt.plot(REWARDS)
@@ -111,7 +131,7 @@ def do_training(prompt_init, epochs, learning_rate, v_size, prompt_length, word_
         plt.show()
     
     if save_results:
-        exp_name = f"d_{dataset}_p_{prompt_init}_e_{epochs}_l_{learning_rate}_v_{v_size}_len_{prompt_length}_wl_{word_len_min}_h_{hidden}_s_{seed}_id_{exp_id}"
+        exp_name = f"d_{dataset}_p_{prompt_init}_e_{epochs}_l_{learning_rates}_v_{v_size}_len_{prompt_length}_wl_{word_len_min}_h_{hiddens}_s_{seed}_id_{exp_id}"
         header = ['Prompt', 'Predictions', 'Scores', 'Reward']
         with open(f'results/{exp_name}.csv', 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
