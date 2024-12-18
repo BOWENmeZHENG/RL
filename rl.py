@@ -27,6 +27,18 @@ class PolicyNet(nn.Module):
         return probs.clone()
         
 class ReplayBuffer:
+    """
+    [state, action_loc, action_word, reward]
+    
+    Example:
+    
+    [tensor([[  6555.],
+        [174899.],
+        [ 19849.],
+        [   220.],
+        [ 18582.],
+        [ 34421.]]), 4, tensor([1147]), 0.6343434343434343]
+    """
     def __init__(self, capacity):
         self.buffer = deque(maxlen=capacity)
     
@@ -76,50 +88,65 @@ def reward_function(prompt_complete, data, client):
 def do_training(prompt_init: list, fixed_ids: list, replay, epochs, learning_rates, v_size, word_len_min, hiddens, seed,
                 exp_id, print_interval, save_results, plot, client, dataset, 
                 pad_token_id=220, format_prompt=". Format it strictly as entities separated by comma.", model_name="gpt-4o-mini"):
+    #--------- Setup ---------------------
     utils.seed_everything(seed)                
     data = utils.load_json_file(f"data/{dataset}.json")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device: {device}")
+    
+    vocab = utils.make_english_vocab(encoding, v_size, word_len_min)
+    print(f"Vocabulary size: {len(vocab)}")
+    
+    encoding = tiktoken.encoding_for_model(model_name)
+    
+    #--------- Load replay buffer ---------------------
     replay_buffer = ReplayBuffer(capacity=1000)
     if replay is not None:
         replay_buffer.load(f"{replay}.pkl")
         print("Replay buffer loaded.")
     else:
         replay_buffer.save("replay_buffer_new.pkl")
-        print("Created a new replay buffer.")
-    print(f"Using device: {device}")
-    # Initialization
-    encoding = tiktoken.encoding_for_model(model_name)
-    vocab = utils.make_english_vocab(encoding, v_size, word_len_min)
-    print(f"Vocabulary size: {len(vocab)}")
-    tokens_prompt = [encoding.encode(word)[0] for word in prompt_init] # encoding.encode(prompt_init)
+        print("Created a new replay buffer replay_buffer_new.pkl. Please change name later.")
+    
+    #-------------- Initialization (the very first prompt designed by human) --------------------------
+    tokens_prompt = [encoding.encode(word)[0] for word in prompt_init] # Convert list of words to list of token IDs
     # padded_token_ids = tokens_prompt + [pad_token_id] * (prompt_length - len(tokens_prompt))
     token_tensor = torch.tensor(tokens_prompt, dtype=torch.float)
+    
+    # Normalize token ID tensor with MinMaxScaler
     token_tensor = torch.reshape(token_tensor, (-1, 1))
     scaler = MinMaxScaler()
     scaler.fit(token_tensor)
     token_tensor_normalized = torch.from_numpy(scaler.transform(token_tensor)).float()
     token_tensor_normalized = torch.reshape(token_tensor_normalized, (1, -1))
+    
+    # Convert list of words to a sentence and add format prompt
     prompt_str = " ".join(prompt_init)
     prompt_complete = prompt_str + format_prompt
     
+    # ************************************** Training *******************************************************
+    
+    # ------------------Define networks -----------------------------------------------
     prompt_length = len(prompt_init)
     net_loc = PolicyNet(input_dim=prompt_length, hidden_dim=hiddens[0], output_dim=prompt_length).to(device)
     optimizer_loc = optim.Adam(net_loc.parameters(), lr=learning_rates[0])
     net_word = PolicyNet(input_dim=prompt_length, hidden_dim=hiddens[1], output_dim=len(vocab)).to(device)
     optimizer_word = optim.Adam(net_word.parameters(), lr=learning_rates[1])
     
+    # ------------------- Calculate predictions and reward of the first prompt ----------------------------
     PROMPTS, PREDICTIONS, SCORES, REWARDS = [], [], [], []
+    
     scores, predictions, reward = reward_function(prompt_complete, data, client)
     print(f"Initial prompt: {prompt_init}")
     print(f"Predictions: {predictions}")
     print(f"Scores: {scores}")
     print(f"Reward: {reward}\n")
-    
     SCORES.append(scores)
     REWARDS.append(reward)
     PREDICTIONS.append(predictions)
     PROMPTS.append(prompt_init)
     
+    # --------------------------- Training loops ---------------------------------
     for episode in range(epochs):
         transition = []
         transition.append(token_tensor)
