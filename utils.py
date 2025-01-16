@@ -151,6 +151,11 @@ def clear_json_file(filename):
         print(f"Error: File '{filename}' not found.")
 
 # LLM
+def get_embedding(text, client, d, model="text-embedding-3-small"):
+    response = client.embeddings.create(input=text, model=model, dimensions=d)
+    return response.data[0].embedding
+
+
 def extract_named_entities(prompt, text, client, temperature=0.0, max_tokens=100):
     """
     Extract named entities from text using a language model client.
