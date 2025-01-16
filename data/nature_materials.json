@@ -1,0 +1,125 @@
+[
+  {
+    "paragraph": "Multi-scale structures are ubiquitous in biological systems. However, manufacturing man-made structures with controllable features spanning multiple length scales, particularly down to nanoscale features, is very challenging, which seriously impacts their collective properties. Here we introduce an aluminium-based three-dimensional lithography that combines sequential nano–micro–macro-imprinting and anodization of multi-scale anodic aluminium oxide templates to manufacture well-defined multi-scale structures, using various materials. The high-fidelity nano-patterns and micro-patterns were facilitated by the surface work hardening phenomenon, where the nano-patterns can be further fine-tailored by anodization to have high-aspect-ratio and tunable nano-holes. Based on the aluminium-based three-dimensional lithography, multi-scale materials across length scales of at least 107 orders of magnitude were precisely fabricated, including carbon, semiconductors and metals. We integrated pressure sensors and biosensors with superior and customizable performances by tailoring the multi-scale carbon networks on different length scales from nanofibres and micropyramids to macrodome arrays. This work provides a versatile technique for prototyping on-demand multi-scale structures and materials to explore desirable mechanical and physical properties.",
+    "materials": [
+      "biological systems",
+      "aluminium",
+      "anodic aluminium oxide templates",
+      "carbon",
+      "semiconductors",
+      "metals",
+      "nanofibres",
+      "micropyramids",
+      "macrodome arrays"
+    ]
+  },
+  {
+    "paragraph": "Present-day liquid-state lasers are based on organic dyes. Here we demonstrate an alternative class of liquid lasers that use solutions of colloidal quantum dots (QDs). Previous efforts to realize such devices have been hampered by the fast non-radiative Auger recombination of multicarrier states required for optical gain. Here we overcome this challenge by using type-(I+II) QDs, which feature a trion-like optical gain state with strongly suppressed Auger recombination. When combined with a Littrow optical cavity, static (non-circulated) solutions of these QDs exhibit stable lasing tunable from 634 nm to 575 nm. These results indicate the feasibility of technologically viable dye-like QD lasers that exhibit broad spectral tunability and, importantly, provide stable operation without the need for a circulation system—a standard attribute of traditional dye lasers. The latter opens the door to less complex and more compact devices that can be readily integrated with various optical and electro-optical systems. An additional advantage of these lasers is the wide range of potentially available wavelengths that can be selected by controlling the composition, size and structure of the QDs.",
+    "materials": [
+      "organic dyes",
+      "colloidal quantum dots (QDs)",
+      "type-(I+II) QDs"
+    ]
+  },
+  {
+    "paragraph": "Spin or valley degrees of freedom hold promise for next-generation spintronics. Nonetheless, the macroscopic coherent spin current formations are still hindered by rapid dephasing due to electron scattering, specifically at room temperature. Exciton polaritons offer excellent platforms for spin-optronic devices via the optical spin Hall effect. However, this effect could neither be unequivocally observed at room temperature nor be exploited for practical spintronic devices due to the presence of strong thermal fluctuations or large linear spin splitting. Here we report the observation of room-temperature optical spin Hall effect of exciton polaritons, with the spin current flow over 60 μm in a formamidinium lead bromide perovskite microcavity. We provide direct evidence of long-range coherence in the flow of polaritons and the spin current carried by them. Leveraging the spin Hall transport of polaritons, we further demonstrate two polaritonic devices, namely, a NOT gate and a spin-polarized beamsplitter, advancing the frontier of room-temperature polaritonics in perovskite microcavities.",
+    "materials": [
+      "spintronics",
+      "Exciton polaritons",
+      "formamidinium lead bromide perovskite microcavity"
+    ]
+  },
+  {
+    "paragraph": "Magnetic information is usually stored in ferromagnets, where the ↑ and ↓ spin states are distinguishable due to time-reversal symmetry breaking. These states induce opposite signs of the Hall effect proportional to magnetization, which is widely used for their electrical read-out. By contrast, conventional antiferromagnets with a collinear antiparallel spin configuration cannot host such functions, because of symmetry (time-reversal followed by translation t symmetry) and lack of macroscopic magnetization. Here we report the experimental observation of a spontaneous Hall effect in the collinear antiferromagnet FeS at room temperature. In this compound, the ↑↓ and ↓↑ spin states induce opposite signs of the spontaneous Hall effect. Our analysis suggests that this does not reflect magnetization, but rather originates from a fictitious magnetic field associated with the-symmetry-broken antiferromagnetic order. The present results pave the way for electrical reading and writing of the ↑↓ and ↓↑ spin states in conductive systems at room temperature, and suggest that symmetry-broken collinear antiferromagnets can serve as an information medium with vanishingly small magnetization.",
+    "materials": [
+      "ferromagnets",
+      "antiferromagnets",
+      "collinear antiferromagnet FeS"
+    ]
+  },
+  {
+    "paragraph": "The coherent spin waves, magnons, can propagate without accompanying charge transports and Joule heat dissipation. Room-temperature and long-distance spin waves propagating within nanoscale spin channels are considered promising for integrated magnonic applications, but experimentally challenging. Here we report that long-distance propagation of chiral magnonic edge states can be achieved at room temperature in manganite thin films with long, antiferromagnetically coupled spin spirals (millimetre length) and low magnetic Gilbert damping (~3.04×10−4). By directly observing the non-reciprocal spin-wave propagation and analysing the strong magnon–magnon coupling in the spiral textures, we elucidate the crucial role of the dynamic dipolar interaction on the birth and hybridization of this chiral magnonic edge state. The observed hybridized magnons with robust chirality can be reversibly and selectively switched on/off by different threshold angles under an external field, indicating great potential for the design of versatile magnonic devices at the nanoscale.",
+    "materials": [
+      "magnons",
+      "manganite thin films"
+    ]
+  },
+  {
+    "paragraph": "High thermoelectric performance is generally achieved by synergistically optimizing two or even three of the contradictorily coupled thermoelectric parameters. Here we demonstrate magneto-thermoelectric correlation as a strategy to achieve simultaneous gain in an enhanced Seebeck coefficient and reduced thermal conductivity in topological materials. We report a large magneto-Seebeck effect and high magneto-thermoelectric figure of merit of 1.7±0.2 at 180K and 0.7T in a single-crystalline Bi88Sb12 topological insulator. This result fills a gap of a high performance below 300K and is promising for low-temperature thermoelectric applications. The large magneto-Seebeck response is attributed to the ultrahigh mobility and the Dirac band dispersion. The application of a low magnetic field to achieve a high thermoelectric performance can be extended to topological materials with similar features that are rapidly emerging because it synergistically optimizes the thermoelectric parameters.",
+    "materials": [
+      "topological materials",
+      "single-crystalline Bi88Sb12 topological insulator"
+    ]
+  },
+  {
+    "paragraph": "The sodium (Na) superionic conductor is a key component that could revolutionize the energy density and safety of conventional Na-ion batteries. However, existing Na superionic conductors are primarily based on a single-anion framework, each presenting inherent advantages and disadvantages. Here we introduce a family of amorphous Na-ion conductors (Na2O2–MCly, M=Hf, Zr and Ta) based on the dual-anion framework of oxychloride. Benefiting from a dual-anion chemistry and with the resulting distinctive structures, Na2O2–MCly electrolytes exhibit room-temperature ionic conductivities up to 2.0mScm−1, wide electrochemical stability windows and desirable mechanical properties. All-solid-state Na-ion batteries incorporating amorphous Na2O2–HfCl4 electrolyte and a Na0.85Mn0.5Ni0.4Fe0.1O2 cathode exhibit a superior rate capability and long-term cycle stability, with 78% capacity retention after 700 cycles under 0.2C (1C=120mAg−1) at room temperature. The discoveries in this work could trigger a new wave of enthusiasm for exploring new superionic conductors beyond those based on a single-anion framework.",
+    "materials": [
+      "sodium (Na) superionic conductor",
+      "Na-ion batteries",
+      "single-anion framework",
+      "Na2O2–MCly",
+      "Hf",
+      "Zr",
+      "Ta",
+      "oxychloride",
+      "electrolytes",
+      "amorphous Na2O2–HfCl4 electrolyte",
+      "Na0.85Mn0.5Ni0.4Fe0.1O2 cathode"
+    ]
+  },
+  {
+    "paragraph": "Polymeric organic mixed ionic–electronic conductors underpin several technologies in which their electrochemical properties are desirable. These properties, however, depend on the microstructure that develops in their aqueous operational environment. We investigated the structure of a model organic mixed ionic–electronic conductor across multiple length scales using cryogenic four-dimensional scanning transmission electron microscopy in both its dry and hydrated states. Four-dimensional scanning transmission electron microscopy allows us to identify the prevalent defects in the polymer crystalline regions and to analyse the liquid crystalline nature of the polymer. The orientation maps of the dry and hydrated polymers show that swelling-induced disorder is mostly localized in discrete regions, thereby largely preserving the liquid crystalline order. Therefore, the liquid crystalline mesostructure makes electronic transport robust to electrolyte ingress. This study demonstrates that cryogenic four-dimensional scanning transmission electron microscopy provides multiscale structural insights into complex, hierarchical structures such as polymeric organic mixed ionic–electronic conductors, even in their hydrated operating state.",
+    "materials": [
+      "Polymeric organic mixed ionic–electronic conductors",
+      "electrolyte"
+    ]
+  },
+  {
+    "paragraph": "Shape morphing is vital to locomotion in microscopic organisms but has been challenging to achieve in sub-millimetre robots. By overcoming obstacles associated with miniaturization, we demonstrate microscopic electronically configurable morphing metasheet robots. These metabots expand locally using a kirigami structure spanning five decades in length, from 10nm electrochemically actuated hinges to 100μm splaying panels making up the ~1mm robot. The panels are organized into unit cells that can expand and contract by 40% within 100ms. These units are tiled to create metasheets with over 200 hinges and independent electronically actuating regions that enable the robot to switch between multiple target geometries with distinct curvature distributions. By electronically actuating independent regions with prescribed phase delays, we generate locomotory gaits. These results advance a metamaterial paradigm for microscopic, continuum, compliant, programmable robots and pave the way to a broad spectrum of applications, including reconfigurable micromachines, tunable optical metasurfaces and miniaturized biomedical devices.",
+    "materials": [
+      "metasheet",
+      "kirigami structure",
+      "metamaterial",
+      "tunable optical metasurfaces"
+    ]
+  },
+  {
+    "paragraph": "High-power autonomous soft actuators are in high demand yet face challenges related to tethered power and dedicated control. Light-driven oscillation by stimuli-responsive polymers allows for remote energy input and control autonomy, but generating high output power density is a daunting challenge requiring an advanced material design principle. Here, inspired by the flight muscle structure of insects, we develop a self-oscillator based on two antagonistically contracting photo-active layers sandwiching an inactive layer. The actuator produces an output power density of 33Wkg−1, 275-fold higher than other configurations and comparable to that of insects. Such oscillators allow for broad-wavelength operation and multifunction integration, including proprioceptive actuation and energy harvesting. We demonstrate high-performance flapping motion enabling various locomotion modes, including a wing with a thrust-to-weight ratio of 0.32. This work advances autonomous, sustained and untethered actuators for powerful robotics.",
+    "materials": [
+      "stimuli-responsive polymers",
+      "self-oscillator",
+      "actuator"
+    ]
+  },
+  {
+    "paragraph": "Metal carbonates, which are ubiquitous in the near-surface mineral record, are a major product of biomineralizing organisms and serve as important targets for capturing anthropogenic CO2 emissions. However, pathways of carbonate mineralization typically diverge from classical predictions due to the involvement of disordered precursors, such as the dense liquid phase (DLP), yet little is known about DLP formation or solidification processes. Using in situ methods we report that a highly hydrated bicarbonate DLP forms via liquid–liquid phase separation and transforms into hollow hydrated amorphous CaCO3 particles. Acidic proteins and polymers extend DLP lifetimes while leaving the pathway and chemistry unchanged. Molecular simulations suggest that the DLP forms via direct condensation of solvated Ca²+⋅(HCO3−)2 complexes that react due to proximity effects in the confined DLP droplets. Our findings provide insight into CaCO3 nucleation that is mediated by liquid–liquid phase separation, advancing the ability to direct carbonate mineralization and elucidating an often-proposed complex pathway of biomineralization.",
+    "materials": [
+      "Metal carbonates",
+      "CO2",
+      "dense liquid phase (DLP)",
+      "bicarbonate DLP",
+      "amorphous CaCO3 particles",
+      "Acidic proteins",
+      "polymers",
+      "Ca²+⋅(HCO3−)2",
+      "CaCO3"
+    ]
+  },
+  {
+    "paragraph": "Nitric oxide (NO), a pivotal signalling molecule, plays multifaceted roles in physiological and pathological processes, including cardiovascular and immune functions, neurotransmission and cancer progression. Nevertheless, measuring NO in vivo is challenging due to its transient nature and the complexity of the biological environment. Here we describe NO-responsive magnetic probes made of crosslinked superparamagnetic iron oxide nanoparticles tethered to a NO-sensitive cleavable linker for highly sensitive and selective NO magnetic resonance imaging in vivo. These probes enable the detection of NO at concentrations as low as 0.147μM, allowing for the imaging and quantification of NO in mouse tumour models, studying its effects on tumour progression and immunity and assessing the response of tumour-associated macrophages to cancer immunotherapeutic agents. Additionally, they facilitate concurrent anatomical and molecular imaging of organs, helping to identify pathological alterations in the liver. Overall, these probes represent promising non-invasive tools for investigating the dose-dependent conflicting role of NO in physiological and pathophysiological processes.",
+    "materials": [
+      "Nitric oxide (NO)",
+      "NO",
+      "crosslinked superparamagnetic iron oxide nanoparticles"
+    ]
+  },
+  {
+    "paragraph": "Leveraging human cells as materials precursors is a promising approach for fabricating living materials with tissue-like functionalities and cellular programmability. Here we describe a set of cellular units with metabolically engineered glycoproteins that allow cells to tether together to function as macrotissue building blocks and bioeffectors. The generated human living materials, termed as Cellgels, can be rapidly assembled in a wide variety of programmable three-dimensional configurations with physiologically relevant cell densities (up to 108 cells per cm3), tunable mechanical properties and handleability. Cellgels inherit the ability of living cells to sense and respond to their environment, showing autonomous tissue-integrative behaviour, mechanical maturation, biological self-healing, biospecific adhesion and capacity to promote wound healing. These living features also enable the modular bottom-up assembly of multiscale constructs, which are reminiscent of human tissue interfaces with heterogeneous composition. This technology can potentially be extended to any human cell type, unlocking the possibility for fabricating living materials that harness the intrinsic biofunctionalities of biological systems.",
+    "materials": [
+      "glycoproteins",
+      "macrotissue building blocks",
+      "bioeffectors",
+      "Cellgels"
+    ]
+  }
+]

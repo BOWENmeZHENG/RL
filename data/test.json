@@ -1,0 +1,41 @@
+[
+  {
+    "paragraph": "We propose a three-dimensional metamaterial with an isotropic and resonant Tellegen response in the visible frequency range. The metamaterial is formed by randomly oriented bi-material nanocylinders in a host medium. Each nanocylinder consists of a ferromagnet in a single-domain magnetic state and a high-permittivity dielectric operating near the magnetic Mie-type resonance. By leveraging the emerging magnetic Weyl semimetals, we further show how a giant bulk effective magnetoelectric effect can be achieved in a proposed metamaterial, exceeding that of natural materials by almost four orders of magnitude. Low-frequency magnetoelectric materials are thus considered for applications in spintronics, next-generation data storage, and ultralow power logic memory devices.",
+    "materials": [
+      "metamaterial",
+      "bi-material nanocylinders",
+      "ferromagnet",
+      "magnetic Weyl semimetals",
+      "magnetoelectric materials",
+      "spintronics",
+      "logic memory devices"
+    ]
+  },
+  {
+    "paragraph": "Herein, we have developed a dehalogenative deuteration strategy using piezoelectric materials as catalysts in a solid-phase system under ball-milling conditions. D2O can serve as both a deuterium source and an electron donor in the transformation, eliminating the need for additional stoichiometric exogenous reductants. A series of (hetero)aryl iodides can be transformed into deuterated products with high deuterium incorporation.",
+    "materials": [
+      "piezoelectric materials",
+      "catalysts",
+      "solid-phase system",
+      "D2O",
+      "deuterium",
+      "stoichiometric exogenous reductants",
+      "(hetero)aryl iodides",
+      "deuterated products"
+    ]
+  },
+  {
+    "paragraph": "Reactive oxygen species (ROS) are a class of chemicals that are generated after the incomplete reduction of molecular oxygen. At moderate levels, ROS function as critical signaling molecules in the modulation of various physiological functions, including inflammatory responses. However, at excessive levels, ROS exert toxic effects and directly oxidize biological macromolecules, such as proteins, nucleic acids and lipids, further exacerbating the development of inflammatory responses and causing various inflammatory diseases.",
+    "materials": [
+      "Reactive oxygen species (ROS)",
+      "chemicals",
+      "molecular oxygen",
+      "signaling molecules",
+      "biological macromolecules",
+      "extracellular material",
+      "proteins",
+      "nucleic acids",
+      "lipids"
+    ]
+  }
+]
