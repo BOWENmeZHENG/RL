@@ -19,12 +19,15 @@ import pandas as pd
 
 def do_training(random_samples: bool, prompt: list, fixed_ids: list, mean_random, std_random,
                 episodes, d_embed, learning_rate, scheduler, scheduler_period, vocabulary, hidden, seed, 
-                print_interval, save_results, plot, client, dataset, 
+                print_interval, save_results, plot, client, dataset, dataset_test,
                 format_prompt=". Format it strictly as entities separated by comma.", model_name="gpt-4o-mini",
                 smallest_lr=1e-6, decay_rate=0.5, plot_interval=50):
     #--------- Setup ---------------------
     utils.seed_everything(seed)                
     data = utils.load_json_file(f"data/{dataset}.json")
+    if dataset_test is not None:
+        data_t = utils.load_json_file(f"data/{dataset_test}.json")
+        print("Test dataset loaded.")
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
     vocab_words = pd.read_csv(f"vocabulary/{vocabulary}.txt").columns.tolist()
@@ -32,7 +35,7 @@ def do_training(random_samples: bool, prompt: list, fixed_ids: list, mean_random
     if random_samples:
         exp_name = f"RANDOM_d_{dataset}_p_{prompt}_ids_{fixed_ids}_v_{vocabulary}_e_{episodes}_s_{seed}"
     else:
-        exp_name = f"d_{dataset}_p_{prompt}_ids_{fixed_ids}_stats_{mean_random}_{std_random}_v_{vocabulary}_e_{episodes}_l_{learning_rate}_sch_{scheduler}_schp_{scheduler_period}_h_{hidden}_s_{seed}"
+        exp_name = f"d_{dataset}_dt_{dataset_test}_p_{prompt}_ids_{fixed_ids}_stats_{mean_random}_{std_random}_v_{vocabulary}_e_{episodes}_l_{learning_rate}_sch_{scheduler}_schp_{scheduler_period}_h_{hidden}_s_{seed}"
     
     #-------------- Initialization (the very first prompt designed by human) --------------------------
     prompt_str = " ".join(prompt)
@@ -65,6 +68,7 @@ def do_training(random_samples: bool, prompt: list, fixed_ids: list, mean_random
     
     # ------------------- Calculate predictions and reward of the first prompt ----------------------------
     PROMPTS, PREDICTIONS, SCORES, REWARDS = [], [], [], []
+    PREDICTIONS_T, SCORES_T, REWARDS_T = [], [], []
     
     scores, predictions, reward = rl.reward_function(prompt_complete, data, client)
     print(f"Initial prompt: {prompt}")
@@ -73,10 +77,19 @@ def do_training(random_samples: bool, prompt: list, fixed_ids: list, mean_random
     REWARDS.append(reward)
     PREDICTIONS.append(predictions)
     PROMPTS.append(prompt)
+    if dataset_test is not None:
+        scores_t, predictions_t, reward_t = rl.reward_function(prompt_complete, data_t, client)
+        print(f"Reward test: {reward_t}\n")
+        SCORES_T.append(scores_t)
+        REWARDS_T.append(reward_t)
+        PREDICTIONS_T.append(predictions_t)
     
     # --------------------------- Training loops ---------------------------------
     best_prompt = prompt.copy()
     best_reward = reward
+    if dataset_test is not None:
+        best_prompt_t = prompt.copy()
+        best_reward_t = 0
     
     for episode in range(episodes):
         lr_current = optimizer.param_groups[0]['lr']
@@ -125,22 +138,38 @@ def do_training(random_samples: bool, prompt: list, fixed_ids: list, mean_random
             best_reward = reward
         
         if print_interval != 0 and episode % print_interval == 0:
-            print(f"Episode: {episode} Prompt: {prompt} Reward: {reward}")
+            print(f"Episode: {episode}")
+            print(f"Prompt: {prompt} Reward: {reward}")
             print(f"Best prompt: {best_prompt} Best reward: {best_reward}")
-    
+            
         SCORES.append(scores)
         REWARDS.append(reward)
         PREDICTIONS.append(predictions)
-        PROMPTS.append(prompt)
+        PROMPTS.append(prompt.copy())
+        
+        if dataset_test is not None:
+            scores_t, predictions_t, reward_t = rl.reward_function(prompt_complete, data_t, client)
+            if reward_t > best_reward_t:
+                best_prompt_t = prompt.copy()
+                best_reward_t = reward_t
+            if print_interval != 0 and episode % print_interval == 0:
+                print(f"Reward test: {reward_t}")
+                print(f"Best prompt test: {best_prompt_t} Best reward test: {best_reward_t}")
+            SCORES_T.append(scores_t)
+            REWARDS_T.append(reward_t)
+            PREDICTIONS_T.append(predictions_t)
         
         if plot:
             if (episode + 1) % plot_interval == 0:
-                plt.plot(REWARDS)
+                plt.plot(REWARDS, color='g', label="training")
                 plt.axhline(y=mean_random, color='r', linestyle='-')
                 plt.fill_between(x=[0, episodes], y1=mean_random-std_random, y2=mean_random+std_random, color='r', alpha=.35)
-                plt.xlim([0, episodes])
+                if dataset_test is not None:
+                    plt.plot(REWARDS_T, color='blue', label="test")
+                plt.xlim([0, episode + 1])
                 plt.xlabel("Episode")
                 plt.ylabel("Mean F1 score")
+                plt.legend()
                 plt.title("Rewards over Episodes")
                 plt.show()
     
@@ -150,11 +179,11 @@ def do_training(random_samples: bool, prompt: list, fixed_ids: list, mean_random
         print("Reward std: ", REWARDS_STD)
     
     if save_results:
-        header = ['Prompt', 'Predictions', 'Scores', 'Reward']
+        header = ['Prompt', 'Predictions', 'Scores', 'Reward', 'Predictions_test', 'Scores_test', 'Reward_test']
         with open(f'results/{exp_name}.csv', 'w', newline='', encoding='utf-8') as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(header) 
-            for i in range(len(PROMPTS)):
-                writer.writerow([PROMPTS[i], ','.join(map(str, PREDICTIONS[i])), ','.join(map(str, SCORES[i])), REWARDS[i]])
+            for j in range(len(PROMPTS)):
+                writer.writerow([PROMPTS[j], ','.join(map(str, PREDICTIONS[j])), ','.join(map(str, SCORES[j])), REWARDS[j], ','.join(map(str, PREDICTIONS_T[j])), ','.join(map(str, SCORES_T[j])), REWARDS_T[j]])
         
     return PROMPTS, PREDICTIONS, SCORES, REWARDS
