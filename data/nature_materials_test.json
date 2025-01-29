@@ -1,0 +1,73 @@
+[
+  {
+    "paragraph": "Nanoscale three-dimensional (3D) printing of metals and alloys has faced challenges in speed, miniaturization and deficiency in material properties. Traditional nanomanufacturing relies on lithographic methods with material constraints, limited resolution and slow layer-by-layer processing. This work introduces polymer-free techniques using two-photon decomposition and optical force trapping for free-space direct 3D printing of metals, metal oxides and multimetallic alloys with resolutions beyond optical limits. This method involves the two-photon decomposition of metal atoms from precursors, rapid assembly into nanoclusters via optical forces and ultrafast laser sintering, yielding dense, smooth nanostructures. Enhanced near-field optical forces from laser-induced localized surface plasmon resonance facilitate nanocluster aggregation. Our approach eliminates the need for organic materials, layer-by-layer printing and complex post-processing. Printed Mo nanowires show an excellent mechanical performance, closely resembling the behaviour of single crystals, while Mo–Co–W alloy nanowires outperform Mo nanowires. This innovation promises the customizable 3D nanoprinting of high-quality metals and metal oxides, impacting nanoelectronics, nanorobotics and advanced chip manufacturing.",
+    "materials": [
+      "metals",
+      "alloys",
+      "metal oxides",
+      "multimetallic alloys",
+      "nanoclusters",
+      "organic materials",
+      "Mo nanowires",
+      "single crystals",
+      "Mo–Co–W alloy nanowires"
+    ]
+  },
+  {
+    "paragraph": "Platinum (Pt) oxides are vital catalysts in numerous reactions, but research indicates that they decompose at high temperatures, limiting their use in high-temperature applications. In this study, we identify a two-dimensional (2D) crystalline Pt oxide with remarkable thermal stability (1,200 K under nitrogen dioxide) using a suite of in situ methods. This 2D Pt oxide, characterized by a honeycomb lattice of Pt atoms encased between dual oxygen layers forming a six-pointed star structure, exhibits minimized in-plane stress and enhanced vertical bonding due to its unique structure, as revealed by theoretical simulations. These features contribute to its high thermal stability. Multiscale in situ observations trace the formation of this 2D Pt oxide from α-PtO2, providing insights into its formation mechanism from the atomic to the millimetre scale. This 2D Pt oxide with outstanding thermal stability and distinct surface electronic structure subverts the previously held notion that Pt oxides do not exist at high temperatures and can also present unique catalytic capabilities. This work expands our understanding of Pt oxidation species and sheds light on the oxidative and catalytic behaviours of Pt oxide in high-temperature settings.",
+    "materials": [
+      "Platinum (Pt) oxides",
+      "nitrogen dioxide",
+      "Pt atoms",
+      "dual oxygen layers",
+      "α-PtO2"
+    ]
+  },
+  {
+    "paragraph": "Second-order superlattices form when moiré superlattices with similar periodicities interfere with each other, leading to larger superlattice periodicities. These crystalline structures are engineered using two-dimensional materials such as graphene and hexagonal boron nitride, and the specific alignment plays a crucial role in facilitating correlation-driven topological phases. Signatures of second-order superlattices have been identified in magnetotransport experiments; however, real-space visualization is still lacking. Here we reveal the second-order superlattice in magic-angle twisted bilayer graphene closely aligned with hexagonal boron nitride through electronic transport measurements and cryogenic nanoscale photovoltage measurements and evidenced by long-range periodic photovoltage modulations. Our results show that even minuscule strain and twist-angle variations as small as 0.01° can lead to drastic changes in the second-order superlattice structure. Our real-space observations, therefore, serve as a ‘magnifying glass’ for strain and twist angle and can elucidate the mechanisms responsible for the breaking of spatial symmetries in twisted bilayer graphene.",
+    "materials": [
+      "Second-order superlattices",
+      "moiré superlattices",
+      "two-dimensional materials",
+      "graphene",
+      "boron nitride",
+      "twisted bilayer graphene"
+    ]
+  },
+  {
+    "paragraph": "Non-reciprocal charge transport has gained significant attention due to its potential in exploring quantum symmetry and its promising applications. Traditionally, non-reciprocal transport has been observed in the longitudinal direction, with non-reciprocal resistance being a small fraction of the ohmic resistance. Here we report a transverse non-reciprocal transport phenomenon featuring a quadratic current–voltage characteristic and divergent non-reciprocity, termed the non-reciprocal Hall effect. This effect is observed in microscale Hall devices fabricated from platinum (Pt) deposited by a focused ion beam on silicon substrates. The transverse non-reciprocal Hall effect arises from the geometrically asymmetric scattering of textured Pt nanoparticles within the focused-ion-beam-deposited Pt structures. Notably, the non-reciprocal Hall effect generated in focused-ion-beam-deposited Pt electrodes can propagate to adjacent conductors such as Au and NbP through Hall current injection. Additionally, this pronounced non-reciprocal Hall effect facilitates broadband frequency mixing. These findings not only validate the non-reciprocal Hall effect concept but also open avenues for its application in terahertz communication, imaging and energy harvesting.",
+    "materials": [
+      "platinum (Pt)",
+      "silicon substrates",
+      "Pt nanoparticles",
+      "Pt electrodes",
+      "Au",
+      "NbP"
+    ]
+  },
+  {
+    "paragraph": "‘Anode-free’ or, more fittingly, metal reservoir-free cells could drastically improve current solid-state battery technology by achieving higher energy density, improving safety and simplifying manufacturing. Various strategies have been reported so far to control the morphology of electrodeposited alkali metal films to be homogeneous and dense, but until now, the microstructure of electrodeposited alkali metal is unknown, and a suitable characterization route is yet to be identified. Here we establish a reproducible protocol for characterizing the size and orientation of metal grains in differently processed lithium and sodium samples by a combination of focused ion beam and electron backscatter diffraction. Electrodeposited films at Cu|Li6.5Ta0.5La3Zr1.5O12, steel|Li6PS5Cl and Al|Na3.4Zr2Si2.4P0.6O12 interfaces were characterized. The analyses show large grain sizes (>100 µm) within these films and a preferential orientation of grain boundaries. Furthermore, metal growth and dissolution were investigated using in situ electron backscatter diffraction, showing a dynamic grain coarsening during electrodeposition and pore formation within grains during dissolution. Our methodology and results deepen the research field for the improvement of solid-state battery performance through a characterization of the alkali metal microstructure.",
+    "materials": [
+      "alkali metal films",
+      "lithium",
+      "sodium",
+      "Cu|Li6.5Ta0.5La3Zr1.5O12",
+      "steel|Li6PS5Cl",
+      "Al|Na3.4Zr2Si2.4P0.6O12"
+    ]
+  },
+  {
+    "paragraph": "‘Anode-free’ Li metal batteries offer the highest possible energy density but face low Li coulombic efficiency when operated in carbonate electrolytes. Here we report a performance improvement of anode-free Li metal batteries using p-block tin octoate additive in the carbonate electrolyte. We show that the preferential adsorption of the octoate moiety on the Cu substrate induces the construction of a carbonate-less protective layer, which inhibits the side reactions and contributes to the uniform Li plating. In the mean time, the reduction of Sn2+ at the initial charging process builds a stable lithophilic layer of Cu6Sn5 alloy and Sn, improving the affinity between the Li and the Cu substrate. Notably, anode-free Li metal pouch cells with tin octoate additive demonstrate good cycling stability with a high coulombic efficiency of ~99.1%. Furthermore, this in situ p-block layer plating strategy is also demonstrated with other types of p-block metal octoate, as well as a Na metal battery system, demonstrating the high level of universality.",
+    "materials": [
+      "Li",
+      "carbonate electrolytes",
+      "p-block tin octoate additive",
+      "Cu substrate",
+      "Sn2+",
+      "Cu6Sn5 alloy",
+      "Sn",
+      "p-block metal octoate",
+      "Na"
+    ]
+  }
+]
